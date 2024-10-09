@@ -15,7 +15,7 @@ interface ScoreData {
     complexity: number;
     adherence_to_solid_principles: number;
     documentation_quality: number;
-    total_score: number;
+    score: number;
   };
   createdAt: string; // ISO date string
 }
@@ -31,7 +31,7 @@ const  ScoreChart: React.FC<Props> = ({ data }) => {
     readability: item.score.readability,
     maintainability: item.score.maintainability,
     performance: item.score.performance,
-    total_score: item.score.total_score,
+    total_score: item.score.score,
   }));
 
   return (
