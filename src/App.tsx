@@ -1,49 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import ScoreChart from './components/scoreCard';
-import AnalysisSummary from './components/analysisSummary';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/navbar';
+import Sidebar from './components/sidebar';
+import Home from './pages/home';
+import Users from './pages/users';
+import UserDetail from './pages/userDetail';
+import Teams from './pages/teams';
+import TeamDetail from './pages/teamDetail';
 
-function App() {
-
-   const [scoreData, setScoreData] = useState<any[]>([]);
-   const [showAnalysis, setShowAnalysis] = useState<Boolean>(false);
-   const [analysisSummary, setAnalysisSummary] = useState<string>("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:9001/user-pr-score');
-      const data = await response.json();
-      setScoreData(data);
-    };
-    
-
-    fetchData();
-  }, []);
-
-  const handleViewAnalysis = async() => {
-    setShowAnalysis(!showAnalysis);
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:9001/user-pr-score/analysis-summary/tanmayhire26');
-      
-      const data=await response.text()
-      setAnalysisSummary(data);
-    };
-
-    if(showAnalysis) {
-      fetchData();
-    }
-
-  }
-  return (
-    <div className="App">
-     <ScoreChart data={scoreData} />
-     <button onClick={handleViewAnalysis}>View analysis</button>
-    { showAnalysis &&<div>
-      <AnalysisSummary data = {analysisSummary}/>
-     </div>}
+const App = () => (
+  <Router>
+    <Navbar />
+    <div className="flex">
+      <Sidebar />
+      <main className="flex-grow p-4 transition-all duration-300">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:userId" element={<UserDetail />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/teams/:teamId" element={<TeamDetail />} />
+        </Routes>
+      </main>
     </div>
-  );
-}
+  </Router>
+);
 
 export default App;

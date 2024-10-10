@@ -8,13 +8,6 @@ interface ScoreData {
     readability: number;
     maintainability: number;
     performance: number;
-    proneness_to_error: number;
-    test_coverage: number;
-    modularity: number;
-    scalability: number;
-    complexity: number;
-    adherence_to_solid_principles: number;
-    documentation_quality: number;
     score: number;
   };
   createdAt: string; // ISO date string
@@ -24,7 +17,7 @@ interface Props {
   data: ScoreData[];
 }
 
-const  ScoreChart: React.FC<Props> = ({ data }) => {
+const ScoreCard: React.FC<Props> = ({ data }) => {
   // Transform data for the chart
   const chartData = data.map(item => ({
     date: new Date(item.createdAt).toLocaleDateString(),
@@ -35,20 +28,20 @@ const  ScoreChart: React.FC<Props> = ({ data }) => {
   }));
 
   return (
-    <div>
-        <div>{data[0]?.userName}</div>
-    <LineChart width={600} height={300} data={chartData}>
-      <XAxis dataKey="date" />
-      <YAxis />
-      <Tooltip />
-      <CartesianGrid strokeDasharray="3 3" />
-      <Line type="monotone" dataKey="readability" stroke="#8884d8" />
-      <Line type="monotone" dataKey="maintainability" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="performance" stroke="#ffc658" />
-      <Line type="monotone" dataKey="total_score" stroke="#ff7300" />
-    </LineChart>
+    <div className="bg-white rounded-lg shadow-md p-4">
+      <h3 className="text-xl font-semibold mb-2">{data[0]?.userName}'s Performance</h3>
+      <LineChart width={600} height={300} data={chartData}>
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Line type="monotone" dataKey="readability" stroke="#8884d8" />
+        <Line type="monotone" dataKey="maintainability" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="performance" stroke="#ffc658" />
+        <Line type="monotone" dataKey="total_score" stroke="#ff7300" />
+      </LineChart>
     </div>
   );
 };
 
-export default ScoreChart;
+export default ScoreCard;
