@@ -4,6 +4,11 @@ import axios from 'axios';
 interface User {
   id: number;
   name: string;
+  profilePicture?: string;
+  numberOfCommits?: Number;
+  projectsWorkedOn?: string[];
+  numberOfChanges?: Number;
+  sentiment?: string;
 }
 
 interface Team {

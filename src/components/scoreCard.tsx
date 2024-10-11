@@ -19,7 +19,7 @@ interface Props {
 
 const ScoreCard: React.FC<Props> = ({ data }) => {
   // Transform data for the chart
-  const chartData = data.map(item => ({
+  const chartData = data?.map(item => ({
     date: new Date(item.createdAt).toLocaleDateString(),
     readability: item.score.readability,
     maintainability: item.score.maintainability,
